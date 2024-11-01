@@ -1,28 +1,10 @@
 #ifndef _LIST_H_
 #define _LIST_H_
 
-enum Errors
-{
-    ALL_RIGHT,
-    NO_FREE,
-    BAD_ANC
-};
+#include "check.h"
 
-static const int LIST_SIZE =  10;
-static const int POISON   = -13;
-static const int START_VALUE = -1;
-
-struct List 
-{
-    int* data;
-
-    int* next; //ну вот и все, от массива структур одни проблемы
-    int* prev;
-
-    int head;
-    int tail;
-
-    int free;
-};
+void list_ctor (List* my_list);
+Errors list_push (List* my_list, int anchor_value, int new_element);
+Errors list_pop (List* my_list, int anchor_value);
 
 #endif //_LIST_H_
