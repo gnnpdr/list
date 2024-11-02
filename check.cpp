@@ -84,7 +84,8 @@ void graph_dump (List* my_list)
     int* next_copy = my_list->next_copy;
 
     static int enter_cnt = 0;
-    char input_file_name[80] = {};
+    char* input_file_name = (char*)calloc(80, sizeof(char));
+    char output_file_name[80] = {};
 
     if (enter_cnt == 0)
     {
@@ -92,53 +93,63 @@ void graph_dump (List* my_list)
         scanf("%s", input_file_name);
     }
 
-    sprintf(input_file_name, "%d.dot", enter_cnt);
-
-    char output_file_name[80] = {};
-    sprintf(output_file_name, "%d.png", enter_cnt);
+    strcpy(output_file_name, input_file_name);
+    sprintf(input_file_name, "%s%d.dot", input_file_name, enter_cnt);
+    
+    sprintf(output_file_name, "%s%d.png", output_file_name, enter_cnt);
 
 
     char input_file_data[INPUT_FILE_SIZE] = {};
 
-    sprintf(input_file_data, "digraph G\n{\n\trankdir=LR;\n \
-    \tnode [shape = Mrecord; fillcolor = \"#9FDFDA\";];");
+    sprintf(input_file_data, "%sdigraph G\n{\n\trankdir=LR;\n\tnode [shape = Mrecord; fillcolor = \"#9FDFDA\";];\n",\
+     input_file_data);
 
     for (int i = 0; i < LIST_SIZE; i++)
-        sprintf(input_file_data, "\tnode%d [style = filled; label = \"node = %d  | data = %d \
-                                | next = %d | prev = %d\"];\n", i, i, data[i], next[i], prev[i]);
+        sprintf(input_file_data, "%s\tnode%d [style = filled; label = \"node = %d  | data = %d | next = %d | prev = %d\"];\n",\
+         input_file_data, i, i, data[i], next[i], prev[i]);
 
-    sprintf(input_file_data, "\tnode_free [fillcolor = \"#16CABD\"; label = \"free = %d\"];\n",\
-                               my_list->free);
+    sprintf(input_file_data, "%s\n", input_file_data);
+
+    sprintf(input_file_data, "%s\tnode_free [fillcolor = \"#16CABD\"; label = \"free = %d\"];\n\n",\
+                               input_file_data, my_list->free);
 
     for (int i = 0; i < LIST_SIZE - 1; i++)
-        sprintf(input_file_data, "\tnode%d -> node%d [weight = bold; color = white;];\n",\
-        i, i + 1);
+        sprintf(input_file_data, "%s\tnode%d -> node%d [weight = bold; color = white;];\n",\
+        input_file_data, i, i + 1);
     
+    sprintf(input_file_data, "%s\n", input_file_data);
+
     for (int i = 0; i < LIST_SIZE; i++)
     {
         if (next_copy[i] != next[i])
-            sprintf(input_file_data, "\tnode%d -> node%d [weight = 0.15; color = \"#1D638B\";\
-                                       constraint = false;];\n",next_copy[i], next[i]);
+            sprintf(input_file_data, "%s\tnode%d -> node%d [weight = 0.15; color = \"#1D638B\"; constraint = false;];\n",\
+             input_file_data, next_copy[i], next[i]);
     }
 
-    sprintf(input_file_data, "\tnode_free -> node%d [weight = 0.15; color = \"%0B3D59\"; \
-                               constraint = false;];\n}", my_list->free);
+    sprintf(input_file_data, "%s\n", input_file_data);
+
+    sprintf(input_file_data, "%s\tnode_free -> node%d [weight = 0.15; color = \"#16476E\"; constraint = false;];\n\n}",\
+     input_file_data, my_list->free);
+
+    printf("NAME\n\n%s\n\n", input_file_name);
+    printf("%s\n\n\n---------------------------------------------------\n", input_file_data);
 
     FILE* input_file;
     input_file = fopen(input_file_name, "w");
 
     fwrite(input_file_data, sizeof(char), INPUT_FILE_SIZE, input_file);
+    fclose(input_file);
 
     graph(input_file_name, output_file_name);
 
     enter_cnt++;
 
-    fclose(input_file);
+    free(input_file_name);
 }
 
-void graph (char* input_file, char* out_file)   //у меня не получилось разложить по папкам. отказано в доступе и разрешения для всех пользователей не меняются
+void graph (char* input_file_name, char* out_file_name)   //у меня не получилось разложить по папкам. отказано в доступе и разрешения для всех пользователей не меняются
 {
     char cmd[80] = {};
-    sprintf(cmd, "dot -Tpng %s -o %s", input_file, out_file);
+    sprintf(cmd, "dot %s -Tpng -o %s", input_file_name, out_file_name);
     system(cmd);
 }

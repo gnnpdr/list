@@ -8,15 +8,15 @@ int main ()
     List my_list = {};
     list_ctor (&my_list);
 
-    dump (&my_list);
+    //graph_dump (&my_list);
 
     list_push (&my_list, 0, 10);
-    dump (&my_list);
-
-    /*list_push (&my_list, 1, 20);
     graph_dump (&my_list);
 
-    list_push (&my_list, 2, 30);
+    list_push (&my_list, 1, 20);
+    graph_dump (&my_list);
+
+    /*list_push (&my_list, 2, 30);
     graph_dump (&my_list);
 
     list_push (&my_list, 1, 40);
@@ -28,5 +28,5 @@ int main ()
     list_pop (&my_list, 1);
     graph_dump (&my_list);*/
 
-    //list_dtor(&my_list);
+    list_dtor(&my_list);
 }
