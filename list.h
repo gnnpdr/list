@@ -6,5 +6,6 @@
 void list_ctor (List* my_list);
 Errors list_push (List* my_list, int anchor_value, int new_element);
 Errors list_pop (List* my_list, int anchor_value);
+void list_dtor(List* my_list);
 
 #endif //_LIST_H_

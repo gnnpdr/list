@@ -1,0 +1,26 @@
+digraph G
+{
+    rankdir=LR;
+
+    node00 [label = "node = 00 | data = 0 | next = 0 | prev = -1"];
+    node01 [label = "node = 01 | data = 0 | next = 0 | prev = -1"];
+    node02 [label = "node = 02 | data = 0 | next = 0 | prev = -1"];
+    node03 [label = "node = 03 | data = 0 | next = 0 | prev = -1"];
+    node04 [label = "node = 04 | data = 0 | next = 0 | prev = -1"];
+    node05 [label = "node = 05 | data = 0 | next = 0 | prev = -1"];
+    node06 [label = "node = 06 | data = 0 | next = 0 | prev = -1"];
+    node07 [label = "node = 07 | data = 0 | next = 0 | prev = -1"];
+    node08 [label = "node = 08 | data = 0 | next = 0 | prev = -1"];
+    node09 [label = "node = 09 | data = 0 | next = 0 | prev = -1"];
+
+    node00 -> node01 [weight = bold; colour = white;];
+    node01 -> node02 [weight = bold; colour = white;];
+    node02 -> node03 [weight = bold; colour = white;];
+    node03 -> node04 [weight = bold; colour = white;];
+    node04 -> node05 [weight = bold; colour = white;];
+    node05 -> node06 [weight = bold; colour = white;];
+    node06 -> node07 [weight = bold; colour = white;];
+    node07 -> node08 [weight = bold; colour = white;];
+    node08 -> node09 [weight = bold; colour = white;];
+
+}

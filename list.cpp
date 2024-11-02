@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 #include "list.h"
 
@@ -13,6 +12,7 @@ void list_ctor (List* my_list)  //оостались вопросы с иниц�
     my_list->data = (int*)calloc(LIST_SIZE, sizeof(int));
     my_list->next = (int*)calloc(LIST_SIZE, sizeof(int));
     my_list->prev = (int*)calloc(LIST_SIZE, sizeof(int));
+    my_list->next_copy = (int*)calloc(LIST_SIZE, sizeof(int));
 
     list[0] = 0;
     next[0] = 0;
@@ -45,6 +45,9 @@ Errors list_push (List* my_list, int anchor_value, int new_element)
     int* next = my_list->next;
     int* prev = my_list->prev;
 
+    for (int i = 0; i < LIST_SIZE; i++)
+        my_list->next_copy[i] = next[i];
+    
     my_list->data[free] = new_element;
 
     prev[free] = anchor_value;
@@ -100,4 +103,6 @@ void list_dtor(List* my_list)
     free(my_list->data);
     free(my_list->next);
     free(my_list->prev);
+    
+    free(my_list->next_copy);
 }

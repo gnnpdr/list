@@ -13,18 +13,20 @@ int main ()
     list_push (&my_list, 0, 10);
     dump (&my_list);
 
-    list_push (&my_list, 1, 20);
-    dump (&my_list);
+    /*list_push (&my_list, 1, 20);
+    graph_dump (&my_list);
 
     list_push (&my_list, 2, 30);
-    dump (&my_list);
+    graph_dump (&my_list);
 
     list_push (&my_list, 1, 40);
-    dump (&my_list);
+    graph_dump (&my_list);
 
     list_push (&my_list, 4,50);  //вот это мне немного не понятно, это правильно или нет. получается, мы вставляем как бы в середину или в конец?
-    dump (&my_list);
+    graph_dump (&my_list);
 
     list_pop (&my_list, 1);
-    dump (&my_list);
+    graph_dump (&my_list);*/
+
+    //list_dtor(&my_list);
 }
